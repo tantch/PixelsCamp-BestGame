@@ -5,21 +5,26 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tantch.pixelscamp.game.PCGame;
 
 public class AvatarScreen implements Screen {
 
 	final PCGame game;
 	OrthographicCamera camera;
-	TextureRegion shrek;
-
+	Texture face;
+    private Viewport viewport;
 	public AvatarScreen(PCGame game) {
 		this.game = game;
-
+		
+		
+		float w = Gdx.graphics.getWidth();                                      
+	    float h = Gdx.graphics.getHeight(); 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
-		//shrek = new TextureRegion(new Texture("sprites/shrek.png"), 0, 0, 128, 128);
+		camera.setToOrtho(false);
+		face = new Texture("sprites/Face.png");
+        viewport = new FitViewport(640, 980, camera);
 	}
 
 	@Override
@@ -37,15 +42,14 @@ public class AvatarScreen implements Screen {
 		game.batch.setProjectionMatrix(camera.combined);
 
 		game.batch.begin();
-		//game.batch.draw(shrek, 300,200);
+		game.batch.draw(face, 250,400);
 		game.batch.end();
 
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+        viewport.update(width, height);
 	}
 
 	@Override
